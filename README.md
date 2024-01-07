@@ -18,7 +18,7 @@ export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
 ```
 
-### 2. Создайте Container Registry, сервисный аккаунт и раздайте необходимые права
+### 2. Создайте Container Registry, сервисный аккаунт, экземпляр YDB и раздайте необходимые права
 
 ```sh
 cd terraform
