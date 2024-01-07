@@ -1,0 +1,117 @@
+openapi: "3.0.0"
+
+info:
+  version: 1.0.0
+  title: Serverless Blog
+
+x-yc-apigateway:
+  service_account_id: ${SERVICE_ACCOUNT_ID}
+  cors:
+    origin: '*'
+    methods: '*'
+    allowedHeaders: '*'
+
+paths:
+  /api/version:
+    get:
+      summary: Get version
+      operationId: getVersion
+      responses:
+        '200':
+          description: Success request
+          content:
+            application/json:
+               schema:
+                 $ref: '#/components/schemas/Version'
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${SERVERLESS_CONTAINER_ID}
+  /api/post:
+    get:
+      summary: List posts
+      operationId: listPosts
+      responses:
+        '200':
+          description: Success request
+          content:
+            application/json:
+               schema:
+                 $ref: '#/components/schemas/ListPosts'
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${SERVERLESS_CONTAINER_ID}
+    post:
+      summary: Create post
+      operationId: createPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePost'
+      responses:
+        '201':
+          description: Success creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${SERVERLESS_CONTAINER_ID}
+  /:
+    get:
+      operationId: index
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: ${BUCKET_NAME}
+        object: index.html
+  /{file+}:
+    get:
+      operationId: file
+      parameters:
+        - name: file
+          in: path
+          required: false
+          schema:
+            type: string
+      x-yc-apigateway-integration:
+        type: object_storage
+        bucket: ${BUCKET_NAME}
+        object: '{file}'
+
+components:
+  schemas:
+    Version:
+      title: Version
+      properties:
+        version:
+          type: string
+        replica_id:
+          type: string
+    Post:
+      title: Post
+      properties:
+        name:
+          type: string
+        text:
+          type: string
+        created_at:
+          type: timestamp
+    ListPosts:
+      title: List posts
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Post'
+    CreatePost:
+      title: Create Post Request
+      required:
+        - name
+        - text
+      properties:
+        name:
+          type: string
+        text:
+          type: string
