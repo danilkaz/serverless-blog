@@ -3,8 +3,6 @@ locals {
     "container-registry.images.puller",
     "serverless.containers.invoker",
     "storage.admin",
-    "ydb.admin",
-    "yds.admin"
   ])
 }
 
