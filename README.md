@@ -58,6 +58,8 @@ cd ../frontend
 ./update.sh
 ```
 
+Приложение находится по адресу из вывода команды `echo ${VUE_APP_SERVERLESS_BLOG_API_URL}`
+
 ## Скрипты для автоматизации
 
 - `backend/scale.sh` - добавление новой реплики контейнера
