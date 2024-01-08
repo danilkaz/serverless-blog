@@ -1,6 +1,8 @@
 # Serverless Blog
 
-## Необходимые утилиты
+Простой блог, построенный на бессерверных технологиях (Serverless Containers, Serverless YDB)
+
+## Необходимые утилиты для развёртывания
 
 - `yc`
 - `terraform`
