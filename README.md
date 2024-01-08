@@ -6,6 +6,8 @@
 - `terraform`
 - `docker`
 - `jq`
+- `npm`
+- `s3cmd`
 
 ## Инструкция по развёртыванию
 
@@ -23,11 +25,10 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 ```sh
 cd terraform
 terraform init
-terraform apply -target yandex_container_registry.registry -target yandex_iam_service_account.service_account -target yandex_resourcemanager_folder_iam_member.roles -target yandex_ydb_database_serverless.ydb
+terraform apply -target yandex_container_registry.registry -target yandex_iam_service_account.service_account -target yandex_ydb_database_serverless.ydb -target yandex_resourcemanager_folder_iam_member.roles 
 export SERVERLESS_BLOG_CONTAINER_REGISTRY_ID=$(terraform output -raw container_registry_id)
 export SERVERLESS_BLOG_SERVICE_ACCOUNT_ID=$(terraform output -raw service_account_id)
 export SERVERLESS_BLOG_YDB_ENDPOINT=$(terraform output -raw ydb_endpoint)
-export SERVERLESS_BLOG_YDB_ACCESS_KEY=$(terraform output -raw service_account_access_key)
 ```
 
 ### 3. Обновите версию бэкенда
@@ -56,3 +57,9 @@ export VUE_APP_SERVERLESS_BLOG_API_URL="https://$(terraform output -raw api_url)
 cd ../frontend
 ./update.sh
 ```
+
+## Скрипты для автоматизации
+
+- `backend/scale.sh` - добавление новой реплики контейнера
+- `backend/update.sh` - обновление и деплой новой версии бэкенда
+- `frontend/update.sh` - обновление и деплой новой версии фронтенда

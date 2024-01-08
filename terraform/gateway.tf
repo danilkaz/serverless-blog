@@ -9,7 +9,7 @@ resource "yandex_api_gateway" "gateway" {
   spec = templatefile("openapi.yaml", {
     SERVICE_ACCOUNT_ID      = yandex_iam_service_account.service_account.id,
     SERVERLESS_CONTAINER_ID = var.SERVERLESS_CONTAINER_ID,
-    BUCKET_NAME             = yandex_container_registry.registry.name
+    BUCKET_NAME             = yandex_storage_bucket.bucket.bucket
   })
 }
 
