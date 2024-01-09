@@ -2,7 +2,7 @@
     <div id="post-item">
         <h2 v-rand-color>{{ post.name }}</h2>
         <p>{{ post.text }}</p>
-        <p style="text-align: right; font-size: x-small;">Дата создания: {{ new Date(Date.parse(post.created_at)).toLocaleTimeString("ru") }}</p>
+        <p style="text-align: right; font-size: x-small;">Дата создания: {{ new Date(Date.parse(post.created_at)).toLocaleDateString("ru") }} {{ new Date(Date.parse(post.created_at)).toLocaleTimeString("ru") }}</p>
     </div>
 </template>
   
