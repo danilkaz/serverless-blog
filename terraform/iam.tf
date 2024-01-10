@@ -2,8 +2,7 @@ locals {
   roles = toset([
     "container-registry.images.puller",
     "serverless.containers.invoker",
-    "storage.editor",
-    "storage.configurer"
+    "storage.admin"
   ])
 }
 
