@@ -12,6 +12,7 @@
 - `jq`
 - `npm`
 - `s3cmd`
+- `base64`
 
 ## Инструкция по развёртыванию
 
@@ -29,11 +30,11 @@ export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
 ```
 
-### 2. Создайте Container Registry, сервисный аккаунт, экземпляр YDB и раздайте необходимые права
+### 2. Создайте инфраструктуру для бэкенда 
 
 ```sh
 terraform -chdir=terraform init
-terraform -chdir=terraform apply -target yandex_container_registry.registry -target yandex_iam_service_account.service_account -target yandex_ydb_database_serverless.ydb -target yandex_resourcemanager_folder_iam_member.roles 
+terraform -chdir=terraform apply -target yandex_container_registry.registry -target yandex_ydb_database_serverless.ydb -target yandex_iam_service_account.service_account -target yandex_resourcemanager_folder_iam_member.roles -target yandex_iam_service_account.ydb_service_account -target yandex_resourcemanager_folder_iam_member.ydb_role -target yandex_iam_service_account_key.ydb_service_account_key
 ```
 
 ### 3. Обновите версию бэкенда

@@ -11,14 +11,15 @@ import (
 	"github.com/ydb-platform/ydb-go-sdk/v3/table/options"
 	"github.com/ydb-platform/ydb-go-sdk/v3/table/result/named"
 	"github.com/ydb-platform/ydb-go-sdk/v3/table/types"
+	"github.com/ydb-platform/ydb-go-yc"
 )
 
 type Client struct {
 	db *ydb.Driver
 }
 
-func New(endpoint, accessToken string) (*Client, error) {
-	db, err := ydb.Open(context.Background(), endpoint, ydb.WithAccessTokenCredentials(accessToken))
+func New(endpoint, serviceAccountKey string) (*Client, error) {
+	db, err := ydb.Open(context.Background(), endpoint, yc.WithServiceAccountKeyCredentials(serviceAccountKey))
 	if err != nil {
 		return nil, fmt.Errorf("open connection error: %w", err)
 	}

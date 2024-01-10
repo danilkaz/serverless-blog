@@ -23,7 +23,7 @@ func main() {
 		log.Fatalf("Config load error: %v", err)
 	}
 
-	ydbClient, err := ydb.New(config.YDB.Endpoint, config.YDB.AccessToken)
+	ydbClient, err := ydb.New(config.YDB.Endpoint, config.YDB.ServiceAccountKey)
 	if err != nil {
 		log.Fatalf("YDB client creation error: %v", err)
 	}

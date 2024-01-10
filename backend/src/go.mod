@@ -4,7 +4,14 @@ go 1.21.5
 
 require github.com/gorilla/mux v1.8.1
 
-require github.com/felixge/httpsnoop v1.0.3 // indirect
+require (
+	github.com/felixge/httpsnoop v1.0.3 // indirect
+	github.com/yandex-cloud/go-genproto v0.0.0-20211115083454-9ca41db5ed9e // indirect
+	github.com/ydb-platform/ydb-go-yc v0.12.1 // indirect
+	github.com/ydb-platform/ydb-go-yc-metadata v0.6.1 // indirect
+	google.golang.org/genproto v0.0.0-20231212172506-995d672761c0 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20231211222908-989df2bf70f3 // indirect
+)
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect

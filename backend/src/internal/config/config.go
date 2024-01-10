@@ -1,6 +1,7 @@
 package config
 
 import (
+	"encoding/base64"
 	"flag"
 	"fmt"
 
@@ -14,8 +15,9 @@ type Config struct {
 }
 
 type YDBConfig struct {
-	Endpoint    string `env:"SERVERLESS_BLOG_YDB_ENDPOINT"`
-	AccessToken string `env:"SERVERLESS_BLOG_YDB_ACCESS_TOKEN"`
+	Endpoint                 string `env:"SERVERLESS_BLOG_YDB_ENDPOINT"`
+	ServiceAccountKey        string
+	ServiceAccountKeyEncoded string `env:"SERVERLESS_BLOG_YDB_SERVICE_ACCOUNT_KEY_ENCODED"`
 }
 
 func Load() (*Config, error) {
@@ -27,6 +29,13 @@ func Load() (*Config, error) {
 	if err := cleanenv.ReadConfig(*path, &config); err != nil {
 		return nil, fmt.Errorf("config parse error: %v", err)
 	}
+
+	serviceAccountKey, err := base64.StdEncoding.DecodeString(config.YDB.ServiceAccountKeyEncoded)
+	if err != nil {
+		return nil, fmt.Errorf("service account key decode error: %w", err)
+	}
+
+	config.YDB.ServiceAccountKey = string(serviceAccountKey)
 
 	return &config, nil
 }
